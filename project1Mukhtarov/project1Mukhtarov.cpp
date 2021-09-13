@@ -3,10 +3,36 @@
 
 #include "pch.h"
 #include <iostream>
+struct Pipe
+{
+    int id;
+    double length;
+};
+
+void input(Pipe& pipe1);
+
+void output(Pipe& pipe1);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Pipe pipe1;
+    pipe1.id = 0;
+    input(pipe1);
+    output(pipe1);
+}
+
+void output(Pipe& pipe1)
+{
+    std::cout << "Length = " << pipe1.length;
+    std::cout << "\nid = " << pipe1.id;
+}
+
+void input(Pipe& pipe1)
+{
+    std::cout << "Input length's pipe - ";
+    std::cin >> pipe1.length;
+    std::cout << "Input id pipe - ";
+    std::cin >> pipe1.id;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

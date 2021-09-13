@@ -1,0 +1,15 @@
+﻿'project1Mukhtarov.exe' (Win32): Loaded 'C:\Users\student\Documents\GitHub\MukhtarovTTas2004.lab0\Mukhtarovalglanglabs1-4\project1Mukhtarov\Debug\project1Mukhtarov.exe'. Symbols loaded.
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ntdll.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\kernel32.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\KernelBase.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcp140d.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\vcruntime140d.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ucrtbased.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\api-ms-win-core-localization-l1-2-0.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\api-ms-win-core-processthreads-l1-1-1.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\api-ms-win-core-file-l1-2-0.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\api-ms-win-core-timezone-l1-1-0.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\api-ms-win-core-file-l2-1-0.dll'. 
+'project1Mukhtarov.exe' (Win32): Loaded 'C:\Windows\SysWOW64\api-ms-win-core-synch-l1-2-0.dll'. 
+The thread 0x22b4 has exited with code 0 (0x0).
+The program '[20088] project1Mukhtarov.exe' has exited with code 0 (0x0).
