@@ -3,6 +3,7 @@
 
 #include "pch.h"
 #include <iostream>
+#include <string>
 
 struct Pipe
 {
@@ -12,8 +13,8 @@ struct Pipe
 
 struct CS
 {
-    int id, count_of_CS, count_of_CS_in_work;
-    wchar_t name_CS;
+    int id, count_of_CS, count_of_CS_in_work, effective;
+    std::string name_CS;
 };
 
 Pipe input_pipe()
@@ -37,22 +38,25 @@ CS input_CS()
     std::cin >> CS1.count_of_CS;
     std::cout << "Input count of CS in work - ";
     std::cin >> CS1.count_of_CS_in_work;
+    std::cout << "Input effective - ";
+    std::cin >> CS1.effective;
     return CS1;
 }
 
 void output(Pipe& pipe1)
 {
-    std::cout << "Length = " << pipe1.length;
-    std::cout << "id = " << pipe1.id;
-    std::cout << "Diametr = " << pipe1.diametr;
+    std::cout << "Length = " << pipe1.length<< '\n';
+    std::cout << "id of pipe = " << pipe1.id << '\n';
+    std::cout << "Diametr = " << pipe1.diametr << '\n';
 }
 
 void output(CS& CS1)
 {
-    std::cout << "id of CS = " << CS1.id;
-    std::cout << "Name of CS = " << CS1.name_CS;
-    std::cout << "Count of CS = " << CS1.count_of_CS;
-    std::cout << "Count of CS in work = " << CS1.count_of_CS_in_work;
+    std::cout << "id of CS = " << CS1.id << '\n';
+    std::cout << "Name of CS = " << CS1.name_CS << '\n';
+    std::cout << "Count of CS = " << CS1.count_of_CS << '\n';
+    std::cout << "Count of CS in work = " << CS1.count_of_CS_in_work << '\n';
+    std::cout << "Effective of CS = " << CS1.effective << '\n';
 }
 
 int main()
@@ -62,7 +66,7 @@ int main()
     output(pipe1);
     CS CS1;
     CS1 = input_CS();
-    output(CS1)
+    output(CS1);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
