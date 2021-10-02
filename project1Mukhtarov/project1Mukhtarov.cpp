@@ -25,6 +25,7 @@ struct CS
 Pipe input_pipe()
 {
     Pipe pipe1;
+    system("cls");
     pipe1.id = 0;
     cout << "Input length of pipe - ";
     cin >> pipe1.length;
@@ -39,6 +40,7 @@ Pipe input_pipe()
 CS input_CS()
 {
     CS CS1;
+    system("cls");
     CS1.id = 0;
     cout << "Input name of CS - ";
     cin >> CS1.name_CS;
@@ -53,6 +55,7 @@ CS input_CS()
 
 void output(Pipe& pipe1)
 {
+
     cout << "Length = " << pipe1.length<< '\n';
     cout << "id of pipe = " << pipe1.id << '\n'; 
     cout << "Diametr = " << pipe1.diametr << '\n';
@@ -71,15 +74,23 @@ void output(CS& CS1)
 
 void changepipe(Pipe& pipe1)
 {
-    cout << "Pipe under repair?";
-    cout << "Yes - 1, No - 0";
-    cin >> pipe1.remont;
+    system("cls");
+    cout << "Pipe under repair?"<<'\n';
+    cout << "Yes - 1, No - 0"<<'\n';
+    cin >> pipe1.remont; '\n';
 }
 
 void changeCS(CS& CS1)
 {
-    cout << "Count of CS in work";
-    cin >> CS1.count_of_CS_in_work;
+    system("cls");
+    cout << "Count of CS in work"<<'\n';
+    cin >> CS1.count_of_CS_in_work; '\n';
+}
+void showobjects(Pipe& pipe1, CS& CS1)
+{
+    system("cls");
+    output(pipe1);
+    output(CS1);
 }
 
 void print_menu() {
@@ -97,19 +108,43 @@ void print_menu() {
 }
 
 
-int main()
-{
-    print_menu();
-    Pipe pipe1;
-    pipe1 = input_pipe();
-    output(pipe1);
-    CS CS1;
-    CS1 = input_CS();
-    output(CS1);
-    changepipe(pipe1);
-    output(pipe1);
+int main() {
+    Pipe pipe1; CS CS1;
+    int variant;
+    do {
+        print_menu(); // выводим меню на экран
+        cin >> variant;
+        switch (variant) {
+        case 0: return 0;
+        case 1:
+            pipe1 = input_pipe();
+            break;
 
+        case 2:
+            CS1 = input_CS();
+            break;
+
+        case 3:
+            showobjects(pipe1,CS1);
+            break;
+
+        case 4:
+            changepipe(pipe1);
+            break;
+        case 5:
+            changeCS(CS1);
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        }
+
+        if (variant != 0)
+            system("pause"); // задерживаем выполнение, чтобы пользователь мог увидеть результат выполнения выбранного пункта
+    } while (true);
 }
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging me
