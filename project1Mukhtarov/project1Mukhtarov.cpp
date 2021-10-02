@@ -13,6 +13,7 @@ struct Pipe
 {
     int id;
     double length, diametr;
+    bool remont;
 };
 
 struct CS
@@ -29,6 +30,9 @@ Pipe input_pipe()
     cin >> pipe1.length;
     cout << "Input diametr of pipe - ";
     cin >> pipe1.diametr;
+    cout << "Pipe under repair?";
+    cout << "Yes - 1, No - 0";
+    cin >> pipe1.remont;
     return pipe1;
 }
 
@@ -50,8 +54,10 @@ CS input_CS()
 void output(Pipe& pipe1)
 {
     cout << "Length = " << pipe1.length<< '\n';
-    cout << "id of pipe = " << pipe1.id << '\n';
+    cout << "id of pipe = " << pipe1.id << '\n'; 
     cout << "Diametr = " << pipe1.diametr << '\n';
+    cout << "Pipe under repair?" << '\n';
+    cout << "Yes - 1, No - 0" << pipe1.remont;
 }
 
 void output(CS& CS1)
@@ -61,6 +67,19 @@ void output(CS& CS1)
     cout << "Count of CS = " << CS1.count_of_CS << '\n';
     cout << "Count of CS in work = " << CS1.count_of_CS_in_work << '\n';
     cout << "Effective of CS = " << CS1.effective << '\n';
+}
+
+void changepipe(Pipe& pipe1)
+{
+    cout << "Pipe under repair?";
+    cout << "Yes - 1, No - 0";
+    cin >> pipe1.remont;
+}
+
+void changeCS(CS& CS1)
+{
+    cout << "Count of CS in work";
+    cin >> CS1.count_of_CS_in_work;
 }
 
 void print_menu() {
@@ -77,13 +96,6 @@ void print_menu() {
     cout << ">";
 }
 
-Pipe change_pipe(pipe1)
-{
-        input_pipe();
-        cout << "Pipe after change" << '\n';
-        output(pipe1);
-
-}
 
 int main()
 {
@@ -94,7 +106,9 @@ int main()
     CS CS1;
     CS1 = input_CS();
     output(CS1);
-    pipe1 change_pipe();
+    changepipe(pipe1);
+    output(pipe1);
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
