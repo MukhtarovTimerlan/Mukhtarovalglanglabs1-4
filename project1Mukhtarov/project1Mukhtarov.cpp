@@ -22,20 +22,94 @@ struct CS
     std::string name_CS;
 };
 
+void checkdiametr(Pipe& pipe1)
+{
+    while (true) {
+        if (cin.peek() != '\n' || !cin || pipe1.diametr<500 || pipe1.diametr>1400 )
+        {
+            cout << "input error. try again";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> pipe1.diametr;       
+        }
+        else
+        {
+            break;
+        }
+    }
+}
+void checklength(Pipe& pipe1)
+{
+    while (true) {
+        if (cin.peek() != '\n' || !cin || pipe1.length < 10 || pipe1.length>100)
+        {
+            cout << "input error. try again: ";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> pipe1.length;
+        }
+        else
+        {
+            break;
+        }
+    }
+}
+void checkremont(Pipe& pipe1)
+{
+    while (true) {
+        if (cin.peek() !='\n' || !cin || pipe1.remont != 0 && pipe1.remont != 1) {
+            cout << "input error. try again: ";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> pipe1.remont;
+        }
+        else {
+            break;
+        }
+    }
+}
+
+void checkcountofcs(CS& CS1) {
+    while (true) {
+        if (cin.peek() != '\n' || !cin || CS1.count_of_CS < 1) {
+            cout << "input error. try again: ";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> CS1.count_of_CS;
+        }
+        else
+            break;
+    }
+}
+
 Pipe input_pipe()
 {
     Pipe pipe1;
     system("cls");
     pipe1.id = 0;
-    cout << "Input length of pipe - ";
-    cin >> pipe1.length;
-    cout << "Input diametr of pipe - ";
+ 
+        cout << "Input length of pipe in range [10,100] of km - ";
+        cin >> pipe1.length;
+        checklength(pipe1);
+
+       
+ 
+    cout << "Input diametr of pipe in range [500,1400] of mm - ";
     cin >> pipe1.diametr;
-    cout << "Pipe under repair?";
-    cout << "Yes - 1, No - 0";
-    cin >> pipe1.remont;
-    return pipe1;
-}
+    checkdiametr(pipe1);
+
+        cout << "Pipe under repair?"<<'\n';
+       cout << "Yes - 1, No - 0"<<'\n';
+      cin >> pipe1.remont;
+      checkremont(pipe1);
+      return(pipe1);
+
+
+
+
+
+
+  }
 
 CS input_CS()
 {
@@ -46,6 +120,7 @@ CS input_CS()
     cin >> CS1.name_CS;
     cout << "Input count of CS - ";
     cin >> CS1.count_of_CS;
+    checkcountofcs(CS1);
     cout << "Input count of CS in work - ";
     cin >> CS1.count_of_CS_in_work;
     cout << "Input effective - ";
@@ -60,7 +135,7 @@ void output(Pipe& pipe1)
     cout << "id of pipe = " << pipe1.id << '\n'; 
     cout << "Diametr = " << pipe1.diametr << '\n';
     cout << "Pipe under repair?" << '\n';
-    cout << "Yes - 1, No - 0" << pipe1.remont;
+    cout << "Yes - 1, No - 0" << pipe1.remont << '\n';
 }
 
 void output(CS& CS1)
@@ -108,6 +183,8 @@ void print_menu() {
 }
 
 
+
+
 int main() {
     Pipe pipe1; CS CS1;
     int variant;
@@ -138,6 +215,7 @@ int main() {
             break;
         case 7:
             break;
+       
         }
 
         if (variant != 0)
