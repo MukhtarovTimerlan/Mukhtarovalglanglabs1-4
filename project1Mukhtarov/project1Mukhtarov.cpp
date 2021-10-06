@@ -4,6 +4,7 @@
 #include "pch.h"
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 using std::cin;
 using std::cout;
@@ -12,13 +13,13 @@ using std::endl;
 struct Pipe
 {
     int id;
-    double length, diametr;
+    double length = -1, diametr=-1;
     bool remont;
 };
 
 struct CS
 {
-    int id, count_of_CS, count_of_CS_in_work, effective;
+    int id, count_of_CS = -1, count_of_CS_in_work=-1, effective=-1;
     std::string name_CS;
 };
 
@@ -27,7 +28,7 @@ void checkdiametr(Pipe& pipe1)
     while (true) {
         if (cin.peek() != '\n' || !cin || pipe1.diametr<500 || pipe1.diametr>1400 )
         {
-            cout << "input error. try again";
+            cout << "Input error. try again: ";
             cin.clear();
             cin.ignore(10000, '\n');
             cin >> pipe1.diametr;       
@@ -43,7 +44,7 @@ void checklength(Pipe& pipe1)
     while (true) {
         if (cin.peek() != '\n' || !cin || pipe1.length < 10 || pipe1.length>100)
         {
-            cout << "input error. try again: ";
+            cout << "Input error. try again: ";
             cin.clear();
             cin.ignore(10000, '\n');
             cin >> pipe1.length;
@@ -58,7 +59,7 @@ void checkremont(Pipe& pipe1)
 {
     while (true) {
         if (cin.peek() !='\n' || !cin || pipe1.remont != 0 && pipe1.remont != 1) {
-            cout << "input error. try again: ";
+            cout << "Input error. try again: ";
             cin.clear();
             cin.ignore(10000, '\n');
             cin >> pipe1.remont;
@@ -72,7 +73,7 @@ void checkremont(Pipe& pipe1)
 void checkcountofcs(CS& CS1) {
     while (true) {
         if (cin.peek() != '\n' || !cin || CS1.count_of_CS < 1) {
-            cout << "input error. try again: ";
+            cout << "Input error. try again: ";
             cin.clear();
             cin.ignore(10000, '\n');
             cin >> CS1.count_of_CS;
@@ -81,34 +82,52 @@ void checkcountofcs(CS& CS1) {
             break;
     }
 }
+void checkcountofcsinwork(CS& CS1) {
+    while (true) {
+        if (cin.peek() != '\n' || !cin || CS1.count_of_CS_in_work < 1 || CS1.count_of_CS_in_work>CS1.count_of_CS) {
+            cout << "Input error. try again: ";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> CS1.count_of_CS_in_work;
+        }
+        else
+            break;
+    }
+}
+void checkeffective(CS& CS1)
+{
+    while (true) {
+        if (cin.peek() != '\n' || !cin || CS1.effective < 0 || CS1.effective > 100)
+        {
+            cout << "Input error. try again: ";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cin >> CS1.effective;
+        }
+        else
+        {
+            break;
+        }
+    }
+}
 
 Pipe input_pipe()
 {
     Pipe pipe1;
     system("cls");
     pipe1.id = 0;
- 
-        cout << "Input length of pipe in range [10,100] of km - ";
-        cin >> pipe1.length;
-        checklength(pipe1);
-
-       
- 
+    cout << "Input length of pipe in range [10,100] of km - ";
+    cin >> pipe1.length;
+    checklength(pipe1);
     cout << "Input diametr of pipe in range [500,1400] of mm - ";
     cin >> pipe1.diametr;
     checkdiametr(pipe1);
-
-        cout << "Pipe under repair?"<<'\n';
-       cout << "Yes - 1, No - 0"<<'\n';
-      cin >> pipe1.remont;
-      checkremont(pipe1);
-      return(pipe1);
-
-
-
-
-
-
+    cout << "Pipe under repair?"<<'\n';
+    cout << "Yes - 1, No - 0"<<'\n';
+    cout << ">";
+    cin >> pipe1.remont;
+    checkremont(pipe1);
+    return(pipe1);
   }
 
 CS input_CS()
@@ -123,62 +142,77 @@ CS input_CS()
     checkcountofcs(CS1);
     cout << "Input count of CS in work - ";
     cin >> CS1.count_of_CS_in_work;
-    cout << "Input effective - ";
+    checkcountofcsinwork(CS1);
+    cout << "Input effective in range[0,100] in integers - ";
     cin >> CS1.effective;
+    checkeffective(CS1);
     return CS1;
 }
 
 void output(Pipe& pipe1)
 {
-
-    cout << "Length = " << pipe1.length<< '\n';
-    cout << "id of pipe = " << pipe1.id << '\n'; 
-    cout << "Diametr = " << pipe1.diametr << '\n';
-    cout << "Pipe under repair?" << '\n';
-    cout << "Yes - 1, No - 0" << pipe1.remont << '\n';
+    cout << std::setw(10) << "PIPE\n";
+    cout << "--------------------------------\n";
+    cout << std::setw(3)<<"Length = " << pipe1.length<< '\n';
+    cout << std::setw(3) << "id of pipe = " << pipe1.id << '\n';
+    cout << std::setw(3) << "Diametr = " << pipe1.diametr << '\n';
+    cout << std::setw(3) << "Pipe under repair?" << '\n';
+    cout << std::setw(3) << "Yes - 1, No - 0\n"<<std::setw(8) << pipe1.remont << '\n';
 }
 
 void output(CS& CS1)
 {
-    cout << "id of CS = " << CS1.id << '\n';
-    cout << "Name of CS = " << CS1.name_CS << '\n';
-    cout << "Count of CS = " << CS1.count_of_CS << '\n';
-    cout << "Count of CS in work = " << CS1.count_of_CS_in_work << '\n';
-    cout << "Effective of CS = " << CS1.effective << '\n';
+    cout << std::setw(10) << "CS\n";
+    cout << "--------------------------------\n";
+    cout << std::setw(3) << "id of CS = " << CS1.id << '\n';
+    cout << std::setw(3) << "Name of CS = " << CS1.name_CS << '\n';
+    cout << std::setw(3) << "Count of CS = " << CS1.count_of_CS << '\n';
+    cout << std::setw(3) << "Count of CS in work = " << CS1.count_of_CS_in_work << '\n';
+    cout << std::setw(3) << "Effective of CS = " << CS1.effective << '\n';
 }
 
-void changepipe(Pipe& pipe1)
+Pipe changepipe(Pipe& pipe1)
 {
     system("cls");
     cout << "Pipe under repair?"<<'\n';
     cout << "Yes - 1, No - 0"<<'\n';
     cin >> pipe1.remont; '\n';
+    checkremont(pipe1);
+    return (pipe1);
 }
 
-void changeCS(CS& CS1)
+CS changeCS(CS& CS1)
 {
     system("cls");
     cout << "Count of CS in work"<<'\n';
     cin >> CS1.count_of_CS_in_work; '\n';
+    checkcountofcsinwork(CS1);
+    return(CS1);
 }
 void showobjects(Pipe& pipe1, CS& CS1)
 {
-    system("cls");
-    output(pipe1);
-    output(CS1);
+    if (pipe1.length == -1 || CS1.count_of_CS == -1) {
+        system("cls");
+        cout << "Pipe and CS data are empty. Try again after adding info.\n";
+    }
+    else {
+        system("cls");
+        output(pipe1);
+        output(CS1);
+    }
 }
 
 void print_menu() {
     system("cls"); // очищаем экран
-    cout << "What do you want to do?" << endl;
-    cout << "1. Add pipe" << endl;
-    cout << "2. Add CS" << endl;
-    cout << "3. Show all objects" << endl;
-    cout << "4. Edit pipe" << endl;
-    cout << "5. Edit CS" << endl;
-    cout << "6. Save changes" << endl;
-    cout << "7. Load to file" << endl;
-    cout << "0. Exit" << endl;
+    cout << "What do you want to do?" << '\n';
+    cout << "1. Add pipe" << '\n';
+    cout << "2. Add CS" << '\n';
+    cout << "3. Show all objects" << '\n';
+    cout << "4. Edit pipe" << '\n';
+    cout << "5. Edit CS" << '\n';
+    cout << "6. Save changes" << '\n';
+    cout << "7. Load to file" << '\n';
+    cout << "0. Exit" << '\n';
     cout << ">";
 }
 
