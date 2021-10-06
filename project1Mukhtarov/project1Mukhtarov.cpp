@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <Windows.h>
+#include <fstream>
 
 using std::cin;
 using std::cout;
@@ -12,14 +14,14 @@ using std::endl;
 
 struct Pipe
 {
-    int id;
+    int id=-1;
     double length = -1, diametr=-1;
     bool remont;
 };
 
 struct CS
 {
-    int id, count_of_CS = -1, count_of_CS_in_work=-1, effective=-1;
+    int id=-1, count_of_CS = -1, count_of_CS_in_work=-1, effective=-1;
     std::string name_CS;
 };
 
@@ -136,7 +138,8 @@ CS input_CS()
     system("cls");
     CS1.id = 0;
     cout << "Input name of CS - ";
-    cin >> CS1.name_CS;
+    cin.ignore(2000, '\n');
+    getline(cin, CS1.name_CS);
     cout << "Input count of CS - ";
     cin >> CS1.count_of_CS;
     checkcountofcs(CS1);
@@ -152,24 +155,78 @@ CS input_CS()
 void output(Pipe& pipe1)
 {
     cout << std::setw(10) << "PIPE\n";
-    cout << "--------------------------------\n";
-    cout << std::setw(3)<<"Length = " << pipe1.length<< '\n';
-    cout << std::setw(3) << "id of pipe = " << pipe1.id << '\n';
-    cout << std::setw(3) << "Diametr = " << pipe1.diametr << '\n';
-    cout << std::setw(3) << "Pipe under repair?" << '\n';
-    cout << std::setw(3) << "Yes - 1, No - 0\n"<<std::setw(8) << pipe1.remont << '\n';
+    cout << "---------------------------\n";
+    cout << "Length = " << pipe1.length<< '\n';
+    cout << "id of pipe = " << pipe1.id << '\n'; 
+    cout << "Diametr = " << pipe1.diametr << '\n';
+    cout << "Pipe under repair?" << '\n';
+    cout << "Yes - 1, No - 0\n"<<std::setw(5) << pipe1.remont << '\n';
 }
 
 void output(CS& CS1)
 {
     cout << std::setw(10) << "CS\n";
-    cout << "--------------------------------\n";
-    cout << std::setw(3) << "id of CS = " << CS1.id << '\n';
-    cout << std::setw(3) << "Name of CS = " << CS1.name_CS << '\n';
-    cout << std::setw(3) << "Count of CS = " << CS1.count_of_CS << '\n';
-    cout << std::setw(3) << "Count of CS in work = " << CS1.count_of_CS_in_work << '\n';
-    cout << std::setw(3) << "Effective of CS = " << CS1.effective << '\n';
+    cout << "---------------------------\n";
+    cout << "id of CS = " << CS1.id << '\n';
+    cout << "Name of CS = " << CS1.name_CS << '\n';
+    cout << "Count of CS = " << CS1.count_of_CS << '\n';
+    cout << "Count of CS in work = " << CS1.count_of_CS_in_work << '\n';
+    cout << "Effective of CS = " << CS1.effective << '\n';
 }
+
+void savetofile(const CS& CS1, const Pipe& pipe1) {
+    std::ofstream Timerlanfile("data.txt");
+    if (Timerlanfile.is_open()){
+        if (pipe1.id != -1 && pipe1.diametr != -1 && pipe1.length != -1)
+        {
+            Timerlanfile << pipe1.id << '\n'
+                << pipe1.length << '\n'
+                << pipe1.diametr << '\n'
+                << pipe1.remont << '\n';
+        }
+        Timerlanfile << " \n";
+        if (CS1.id != -1 && CS1.count_of_CS != -1 && CS1.count_of_CS_in_work != -1 && CS1.effective != -1) {
+            Timerlanfile << CS1.id << '\n'
+                << CS1.name_CS << '\n'
+                << CS1.count_of_CS << '\n'
+                << CS1.count_of_CS_in_work << '\n'
+                << CS1.effective;
+        }
+        Timerlanfile.close();
+    }
+    else {
+        cout << "Error. File is missing or dont exist.\n";
+    }
+
+
+
+
+}
+void readfromfile(CS& CS1, Pipe& pipe1) {
+    std::ifstream timerlaread("data.txt");
+    if (timerlaread.is_open()) {
+        if (timerlaread.peek() != -1) {
+            while (timerlaread.peek() != ' ')
+            {
+                timerlaread >> pipe1.id >> pipe1.length >> pipe1.diametr >> pipe1.remont;
+                timerlaread.ignore(1000, '\n');
+            }
+            timerlaread.ignore(1000, '\n');
+            while (timerlaread.peek() != -1) {
+                timerlaread >> CS1.id;
+                getline(timerlaread, CS1.name_CS);
+                timerlaread >> CS1.count_of_CS >> CS1.count_of_CS_in_work >> CS1.effective;
+            }
+            timerlaread.close();
+        }
+        else {
+            cout << "You dont load data to file to read it.\n";
+        }
+    }
+    else {
+        cout << "File cant be open or empty.";
+    }
+ }
 
 Pipe changepipe(Pipe& pipe1)
 {
@@ -191,19 +248,20 @@ CS changeCS(CS& CS1)
 }
 void showobjects(Pipe& pipe1, CS& CS1)
 {
-    if (pipe1.length == -1 || CS1.count_of_CS == -1) {
+   // if (pipe1.length == -1 || CS1.count_of_CS == -1) {
+   //     system("cls");
+    //    cout << "Pipe and/or CS data are empty. Try again after adding info.\n";
+   // }
+   // else {
         system("cls");
-        cout << "Pipe and CS data are empty. Try again after adding info.\n";
-    }
-    else {
-        system("cls");
+        cout << "If properties are -1 then CS or Pipe aren't inputen\n";
         output(pipe1);
         output(CS1);
-    }
+    //}
 }
 
 void print_menu() {
-    system("cls"); // очищаем экран
+    system("cls"); // очищаю экран
     cout << "What do you want to do?" << '\n';
     cout << "1. Add pipe" << '\n';
     cout << "2. Add CS" << '\n';
@@ -246,14 +304,17 @@ int main() {
             changeCS(CS1);
             break;
         case 6:
+            savetofile(CS1, pipe1);
             break;
         case 7:
+            readfromfile(CS1, pipe1);
             break;
-       
+        default:
+            cout << "It isn't command number. Try again.\n";
         }
 
         if (variant != 0)
-            system("pause"); // задерживаем выполнение, чтобы пользователь мог увидеть результат выполнения выбранного пункта
+            Sleep(3000);
     } while (true);
 }
 
