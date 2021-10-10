@@ -14,8 +14,8 @@ using std::endl;
 
 struct Pipe
 {
-    int id=-1;
-    double length = -1, diametr=-1;
+    int id = -1, diametr = -1;
+    double length = -1;
     bool remont;
 };
 
@@ -25,15 +25,14 @@ struct CS
     std::string name_CS;
 };
 
-void checkdiametr(Pipe& pipe1)
-{
+void validateint(int& digitc, int min, int max) {
     while (true) {
-        if (cin.peek() != '\n' || !cin || pipe1.diametr<500 || pipe1.diametr>1400 )
+        if (!cin || cin.peek() != '\n' || digitc < min || digitc > max)
         {
             cout << "Input error. try again: ";
             cin.clear();
             cin.ignore(10000, '\n');
-            cin >> pipe1.diametr;       
+            cin >> digitc;
         }
         else
         {
@@ -41,15 +40,14 @@ void checkdiametr(Pipe& pipe1)
         }
     }
 }
-void checklength(Pipe& pipe1)
-{
+void validatedouble(double& digitc, int min, int max) {
     while (true) {
-        if (cin.peek() != '\n' || !cin || pipe1.length < 10 || pipe1.length>100)
+        if (!cin || cin.peek() != '\n' || digitc < min || digitc > max)
         {
             cout << "Input error. try again: ";
             cin.clear();
             cin.ignore(10000, '\n');
-            cin >> pipe1.length;
+            cin >> digitc;
         }
         else
         {
@@ -57,14 +55,16 @@ void checklength(Pipe& pipe1)
         }
     }
 }
-void checkremont(Pipe& pipe1)
+
+
+void checkremont(bool& remont)// не нужно
 {
-    while (true) {
-        if (cin.peek() !='\n' || !cin || pipe1.remont != 0 && pipe1.remont != 1) {
+   while (true) {
+        if (!cin || cin.peek() !='\n' || remont != 0 && remont != 1) {
             cout << "Input error. try again: ";
             cin.clear();
             cin.ignore(10000, '\n');
-            cin >> pipe1.remont;
+            cin >> remont;
         }
         else {
             break;
@@ -72,46 +72,6 @@ void checkremont(Pipe& pipe1)
     }
 }
 
-void checkcountofcs(CS& CS1) {
-    while (true) {
-        if (cin.peek() != '\n' || !cin || CS1.count_of_CS < 1) {
-            cout << "Input error. try again: ";
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cin >> CS1.count_of_CS;
-        }
-        else
-            break;
-    }
-}
-void checkcountofcsinwork(CS& CS1) {
-    while (true) {
-        if (cin.peek() != '\n' || !cin || CS1.count_of_CS_in_work < 1 || CS1.count_of_CS_in_work>CS1.count_of_CS) {
-            cout << "Input error. try again: ";
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cin >> CS1.count_of_CS_in_work;
-        }
-        else
-            break;
-    }
-}
-void checkeffective(CS& CS1)
-{
-    while (true) {
-        if (cin.peek() != '\n' || !cin || CS1.effective < 0 || CS1.effective > 100)
-        {
-            cout << "Input error. try again: ";
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cin >> CS1.effective;
-        }
-        else
-        {
-            break;
-        }
-    }
-}
 
 Pipe input_pipe()
 {
@@ -120,15 +80,11 @@ Pipe input_pipe()
     pipe1.id = 0;
     cout << "Input length of pipe in range [10,100] of km - ";
     cin >> pipe1.length;
-    checklength(pipe1);
+    validatedouble(pipe1.length,10,100);
     cout << "Input diametr of pipe in range [500,1400] of mm - ";
     cin >> pipe1.diametr;
-    checkdiametr(pipe1);
-    cout << "Pipe under repair?"<<'\n';
-    cout << "Yes - 1, No - 0"<<'\n';
-    cout << ">";
-    cin >> pipe1.remont;
-    checkremont(pipe1);
+    validateint(pipe1.diametr,500,1400);
+    pipe1.remont = 0;
     return(pipe1);
   }
 
@@ -140,19 +96,19 @@ CS input_CS()
     cout << "Input name of CS - ";
     cin.ignore(2000, '\n');
     getline(cin, CS1.name_CS);
-    cout << "Input count of CS - ";
+    cout << "Input count of CS in range of [1,50] ";
     cin >> CS1.count_of_CS;
-    checkcountofcs(CS1);
+    validateint(CS1.count_of_CS,1,50);
     cout << "Input count of CS in work - ";
     cin >> CS1.count_of_CS_in_work;
-    checkcountofcsinwork(CS1);
+    validateint(CS1.count_of_CS_in_work,1,CS1.count_of_CS_in_work);
     cout << "Input effective in range[0,100] in integers - ";
     cin >> CS1.effective;
-    checkeffective(CS1);
+    validateint(CS1.effective,1,100);
     return CS1;
 }
 
-void output(Pipe& pipe1)
+void output(const Pipe& pipe1)
 {
     cout << std::setw(10) << "PIPE\n";
     cout << "---------------------------\n";
@@ -163,7 +119,7 @@ void output(Pipe& pipe1)
     cout << "Yes - 1, No - 0\n"<<std::setw(5) << pipe1.remont << '\n';
 }
 
-void output(CS& CS1)
+void output(const CS& CS1)
 {
     cout << std::setw(10) << "CS\n";
     cout << "---------------------------\n";
@@ -174,50 +130,55 @@ void output(CS& CS1)
     cout << "Effective of CS = " << CS1.effective << '\n';
 }
 
+void validatepipefile(const Pipe& pipe1, std::ofstream& datfile) {
+    if (pipe1.id != -1)// && pipe1.diametr != -1 && pipe1.length != -1)
+    {
+        datfile << pipe1.id << '\n'
+            << pipe1.length << '\n'
+            << pipe1.diametr << '\n'
+            << pipe1.remont << '\n';
+    }
+}
+void validatecsfile(const CS& CS1, std::ofstream& datfile) {
+    if (CS1.id != -1){// && CS1.count_of_CS != -1 && CS1.count_of_CS_in_work != -1 && CS1.effective != -1) {
+        datfile << CS1.id << '\n'
+            << CS1.name_CS << '\n'
+            << CS1.count_of_CS << '\n'
+            << CS1.count_of_CS_in_work << '\n'
+            << CS1.effective;
+    }
+}
+
+
 void savetofile(const CS& CS1, const Pipe& pipe1) {
-    std::ofstream Timerlanfile("data.txt");
-    if (Timerlanfile.is_open()){
-        if (pipe1.id != -1 && pipe1.diametr != -1 && pipe1.length != -1)
-        {
-            Timerlanfile << pipe1.id << '\n'
-                << pipe1.length << '\n'
-                << pipe1.diametr << '\n'
-                << pipe1.remont << '\n';
-        }
-        Timerlanfile << " \n";
-        if (CS1.id != -1 && CS1.count_of_CS != -1 && CS1.count_of_CS_in_work != -1 && CS1.effective != -1) {
-            Timerlanfile << CS1.id << '\n'
-                << CS1.name_CS << '\n'
-                << CS1.count_of_CS << '\n'
-                << CS1.count_of_CS_in_work << '\n'
-                << CS1.effective;
-        }
-        Timerlanfile.close();
+    std::ofstream datfile("data.txt");
+    if (datfile.is_open()){
+        validatepipefile(pipe1, datfile);
+        datfile << " \n";
+        validatecsfile(CS1, datfile);
+        datfile.close();
     }
     else {
         cout << "Error. File is missing or dont exist.\n";
     }
-
-
-
-
 }
+
 void readfromfile(CS& CS1, Pipe& pipe1) {
-    std::ifstream timerlaread("data.txt");
-    if (timerlaread.is_open()) {
-        if (timerlaread.peek() != -1) {
-            while (timerlaread.peek() != ' ')
+    std::ifstream dataaread("data.txt");
+    if (dataaread.is_open()) {
+        if (dataaread.peek() != -1) {
+            while (dataaread.peek() != ' ')
             {
-                timerlaread >> pipe1.id >> pipe1.length >> pipe1.diametr >> pipe1.remont;
-                timerlaread.ignore(1000, '\n');
+                dataaread >> pipe1.id >> pipe1.length >> pipe1.diametr >> pipe1.remont;
+                dataaread.ignore(1000, '\n');
             }
-            timerlaread.ignore(1000, '\n');
-            while (timerlaread.peek() != -1) {
-                timerlaread >> CS1.id;
-                getline(timerlaread, CS1.name_CS);
-                timerlaread >> CS1.count_of_CS >> CS1.count_of_CS_in_work >> CS1.effective;
+            dataaread.ignore(1000, '\n');
+            while (dataaread.peek() != -1) {
+                dataaread >> CS1.id;
+                getline(dataaread, CS1.name_CS);
+                dataaread >> CS1.count_of_CS >> CS1.count_of_CS_in_work >> CS1.effective;
             }
-            timerlaread.close();
+            dataaread.close();
         }
         else {
             cout << "You dont load data to file to read it.\n";
@@ -228,48 +189,48 @@ void readfromfile(CS& CS1, Pipe& pipe1) {
     }
  }
 
-Pipe changepipe(Pipe& pipe1)
+void changepipe(bool& remont)
 {
     system("cls");
     cout << "Pipe under repair?"<<'\n';
     cout << "Yes - 1, No - 0"<<'\n';
-    cin >> pipe1.remont; '\n';
-    checkremont(pipe1);
-    return (pipe1);
+    cin >> remont; '\n';
+    checkremont(remont);
 }
 
-CS changeCS(CS& CS1)
+void changeCS(int& count_of_CS_in_work,const int& count_of_CS)
 {
     system("cls");
     cout << "Count of CS in work"<<'\n';
-    cin >> CS1.count_of_CS_in_work; '\n';
-    checkcountofcsinwork(CS1);
-    return(CS1);
+    cin >> count_of_CS_in_work; '\n';
+    validateint(count_of_CS_in_work,1,count_of_CS);
 }
-void showobjects(Pipe& pipe1, CS& CS1)
+
+void showobjects(const Pipe& pipe1,const CS& CS1)
 {
-   // if (pipe1.length == -1 || CS1.count_of_CS == -1) {
-   //     system("cls");
-    //    cout << "Pipe and/or CS data are empty. Try again after adding info.\n";
-   // }
-   // else {
+    system("cls");
+   if (pipe1.length == -1 && CS1.count_of_CS == -1) {
         system("cls");
-        cout << "If properties are -1 then CS or Pipe aren't inputen\n";
+        cout << "Pipe and CS data are empty. Try again after adding info.\n";
+    }
+    if (pipe1.length !=-1) {
         output(pipe1);
+    }
+    if (CS1.count_of_CS != -1) {
         output(CS1);
-    //}
+    }
 }
 
 void print_menu() {
-    system("cls"); // очищаю экран
+    system("cls");
     cout << "What do you want to do?" << '\n';
     cout << "1. Add pipe" << '\n';
     cout << "2. Add CS" << '\n';
     cout << "3. Show all objects" << '\n';
     cout << "4. Edit pipe" << '\n';
     cout << "5. Edit CS" << '\n';
-    cout << "6. Save changes" << '\n';
-    cout << "7. Load to file" << '\n';
+    cout << "6. Save to file" << '\n';
+    cout << "7. Load from file" << '\n';
     cout << "0. Exit" << '\n';
     cout << ">";
 }
@@ -281,8 +242,9 @@ int main() {
     Pipe pipe1; CS CS1;
     int variant;
     do {
-        print_menu(); // выводим меню на экран
+        print_menu();
         cin >> variant;
+        validateint(variant, 0, 7);
         switch (variant) {
         case 0: return 0;
         case 1:
@@ -298,19 +260,17 @@ int main() {
             break;
 
         case 4:
-            changepipe(pipe1);
+            changepipe(pipe1.remont);
             break;
         case 5:
-            changeCS(CS1);
+            changeCS(CS1.count_of_CS_in_work, CS1.count_of_CS);
             break;
         case 6:
             savetofile(CS1, pipe1);
             break;
         case 7:
             readfromfile(CS1, pipe1);
-            break;
-        default:
-            cout << "It isn't command number. Try again.\n";
+            break; 
         }
 
         if (variant != 0)
