@@ -57,7 +57,7 @@ void validatedouble(double& digitc, int min, int max) {
 }
 
 
-void checkremont(bool& remont)// не нужно
+void checkremont(bool& remont)//
 {
    while (true) {
         if (!cin || cin.peek() !='\n' || remont != 0 && remont != 1) {
@@ -130,7 +130,7 @@ void output(const CS& CS1)
     cout << "Effective of CS = " << CS1.effective << '\n';
 }
 
-void validatepipefile(const Pipe& pipe1, std::ofstream& datfile) {
+void savetofilepipe(const Pipe& pipe1, std::ofstream& datfile) {
     if (pipe1.id != -1)// && pipe1.diametr != -1 && pipe1.length != -1)
     {
         datfile << pipe1.id << '\n'
@@ -139,7 +139,7 @@ void validatepipefile(const Pipe& pipe1, std::ofstream& datfile) {
             << pipe1.remont << '\n';
     }
 }
-void validatecsfile(const CS& CS1, std::ofstream& datfile) {
+void savetofileCS(const CS& CS1, std::ofstream& datfile) {
     if (CS1.id != -1){// && CS1.count_of_CS != -1 && CS1.count_of_CS_in_work != -1 && CS1.effective != -1) {
         datfile << CS1.id << '\n'
             << CS1.name_CS << '\n'
@@ -153,9 +153,9 @@ void validatecsfile(const CS& CS1, std::ofstream& datfile) {
 void savetofile(const CS& CS1, const Pipe& pipe1) {
     std::ofstream datfile("data.txt");
     if (datfile.is_open()){
-        validatepipefile(pipe1, datfile);
+        savetofilepipe(pipe1, datfile);
         datfile << " \n";
-        validatecsfile(CS1, datfile);
+        savetofileCS(CS1, datfile);
         datfile.close();
     }
     else {
