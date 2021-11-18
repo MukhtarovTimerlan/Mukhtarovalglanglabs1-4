@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <Windows.h>
 #include <fstream>
+#include "CS.h"
 
 using std::cin;
 using std::cout;
@@ -21,9 +22,9 @@ struct Pipe
 
 struct CS
 {
-    int id=-1, count_of_CS = -1, count_of_CS_in_work=-1, effective=-1;
+    int id = -1, count_of_CS = -1, count_of_CS_in_work = -1, effective = -1;
     std::string name_CS;
-};
+}; 
 
 void validateint(int& digitc, int min, int max) {
     while (true) {
