@@ -11,8 +11,8 @@ public:
 	void set_remont(bool);
 	bool get_remont();
 private:
-	int id, diametr;
-	double length;
+	int id=-1, diametr=-1;
+	double length=-1;
 	bool remont;
 
 };

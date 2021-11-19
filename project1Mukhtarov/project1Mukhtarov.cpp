@@ -12,20 +12,6 @@
 using std::cin;
 using std::cout;
 using std::endl;
-
-struct Pipe
-{
-    int id = -1, diametr = -1;
-    double length = -1;
-    bool remont;
-};
-
-struct CS
-{
-    int id = -1, count_of_CS = -1, count_of_CS_in_work = -1, effective = -1;
-    std::string name_CS;
-}; 
-
 void validateint(int& digitc, int min, int max) {
     while (true) {
         if (!cin || cin.peek() != '\n' || digitc < min || digitc > max)
@@ -221,24 +207,6 @@ void showobjects(const Pipe& pipe1,const CS& CS1)
         output(CS1);
     }
 }
-
-void print_menu() {
-    system("cls");
-    cout << "What do you want to do?" << '\n';
-    cout << "1. Add pipe" << '\n';
-    cout << "2. Add CS" << '\n';
-    cout << "3. Show all objects" << '\n';
-    cout << "4. Edit pipe" << '\n';
-    cout << "5. Edit CS" << '\n';
-    cout << "6. Save to file" << '\n';
-    cout << "7. Load from file" << '\n';
-    cout << "0. Exit" << '\n';
-    cout << ">";
-}
-
-
-
-
 int main() {
     Pipe pipe1; CS CS1;
     int variant;
