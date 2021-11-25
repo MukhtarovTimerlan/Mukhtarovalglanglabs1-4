@@ -2,18 +2,14 @@
 class Pipe
 {
 public:
-	void set_id(int);
-	int get_id();
-	void set_diametr(int);
-	int get_diametr();
-	void set_length(double);
-	double get_length();
-	void set_remont(bool);
-	bool get_remont();
-private:
-	int id=-1, diametr=-1;
-	double length=-1;
+	Pipe();
+	int diametr;
+	double length;
 	bool remont;
-
+	void ChangePipe();
+	friend class PipeNetwork;
+private:
+	size_t id;
+	static size_t MaxidPipe;
 };
 

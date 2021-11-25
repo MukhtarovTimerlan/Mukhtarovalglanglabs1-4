@@ -1,42 +1,18 @@
 #include "pch.h"
 #include "Pipe.h"
+#include "Verification.h"
 
-void Pipe::set_id(int id_)
+Pipe::Pipe()
 {
-	Pipe::id = id_;
+	MaxidPipe++;
+	this->id = MaxidPipe;
+	this->length = Verification::getdouble("Input length of pipe in range [10,100] of km.", "Your input isn't valid.Use only numbers and '.'", 10, 100);
+	this->diametr = Verification::getint("Input diametr of pipe in range [500,1400] of mm.", "Your input isn't valid. Use only integers numbers", 500, 1400);
+	this->remont = Verification::getbool("Input repair status:\nYes-1, No - 0", "Your input isn't valid. Use only 1 or 0");
 }
 
-int Pipe::get_id()
+void Pipe::ChangePipe()
 {
-	return Pipe::id;
+	this->remont = Verification::getbool("Choose new pipe condition.\n Yes - 1, No - 0", "Your input isn't valid. Use only 1 or 0");
 }
 
-void Pipe::set_diametr(int diametr_)
-{
-	Pipe::diametr = diametr_;
-}
-
-int Pipe::get_diametr()
-{
-	return Pipe::diametr;
-}
-
-void Pipe::set_length(double length_)
-{
-	Pipe::length = length_;
-}
-
-double Pipe::get_length()
-{
-	return Pipe::length;
-}
-
-void Pipe::set_remont(bool remont_)
-{
-	Pipe::remont = remont_;
-}
-
-bool Pipe::get_remont()
-{
-	return Pipe::remont;
-}
