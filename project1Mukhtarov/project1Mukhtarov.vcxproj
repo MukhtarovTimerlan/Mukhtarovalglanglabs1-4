@@ -120,7 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -165,7 +165,6 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="CS.h" />
     <ClInclude Include="CSNetwork.h" />
-    <ClInclude Include="pch.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="PipeNetwork.h" />
     <ClInclude Include="Verification.h" />

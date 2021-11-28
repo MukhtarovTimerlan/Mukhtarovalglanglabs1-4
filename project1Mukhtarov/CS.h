@@ -1,5 +1,9 @@
 #pragma once
-#include <string>;
+#include <string>
+
+#ifndef CS_H
+#define CS_H
+
 class CS
 {
 private:
@@ -15,3 +19,4 @@ public:
 	friend class CSNetwork;
 };
 
+#endif 

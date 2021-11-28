@@ -11,6 +11,7 @@ Pipe::Pipe()
 	this->remont = Verification::getbool("Input repair status:\nYes-1, No - 0", "Your input isn't valid. Use only 1 or 0");
 }
 
+
 void Pipe::ChangePipe()
 {
 	this->remont = Verification::getbool("Choose new pipe condition.\n Yes - 1, No - 0", "Your input isn't valid. Use only 1 or 0");

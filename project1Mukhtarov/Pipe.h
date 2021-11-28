@@ -1,4 +1,8 @@
 #pragma once
+#ifndef PIPE_H
+#define PIPE_H
+
+
 class Pipe
 {
 public:
@@ -13,3 +17,4 @@ private:
 	static size_t MaxidPipe;
 };
 
+#endif 

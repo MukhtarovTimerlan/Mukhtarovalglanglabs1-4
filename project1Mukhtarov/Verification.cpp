@@ -93,6 +93,7 @@ bool Verification::getbool(std::string textRequest, std::string textError)
             cin >> value;
         }
         else {
+            return (value);
             break;
         }
     }

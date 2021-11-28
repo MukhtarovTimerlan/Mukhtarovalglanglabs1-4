@@ -7,117 +7,19 @@
 #include <iomanip>
 #include <Windows.h>
 #include <fstream>
-//#include "CS.h"
+#include "Console.h"
+#include "Verification.h"
+#include "PipeNetwork.h"
+#include "CSNetwork.h"
+#include "CS.h"
+#include "Pipe.h"
+
 
 using std::cin;
 using std::cout;
 using std::endl;
-void validateint(int& digitc, int min, int max) {
-    while (true) {
-        if (!cin || cin.peek() != '\n' || digitc < min || digitc > max)
-        {
-            cout << "Input error. try again: ";
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cin >> digitc;
-        }
-        else
-        {
-            break;
-        }
-    }
-}
-void validatedouble(double& digitc, int min, int max) {
-    while (true) {
-        if (!cin || cin.peek() != '\n' || digitc < min || digitc > max)
-        {
-            cout << "Input error. try again: ";
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cin >> digitc;
-        }
-        else
-        {
-            break;
-        }
-    }
-}
 
-
-void checkremont(bool& remont)//
-{
-   while (true) {
-        if (!cin || cin.peek() !='\n' || remont != 0 && remont != 1) {
-            cout << "Input error. try again: ";
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cin >> remont;
-        }
-        else {
-            break;
-        }
-    }
-}
-
-
-Pipe input_pipe()
-{
-    Pipe pipe1;
-    system("cls");
-    pipe1.id = 0;
-    cout << "Input length of pipe in range [10,100] of km - ";
-    cin >> pipe1.length;
-    validatedouble(pipe1.length,10,100);
-    cout << "Input diametr of pipe in range [500,1400] of mm - ";
-    cin >> pipe1.diametr;
-    validateint(pipe1.diametr,500,1400);
-    pipe1.remont = 0;
-    return(pipe1);
-  }
-
-CS input_CS()
-{
-    CS CS1;
-    system("cls");
-    CS1.id = 0;
-    cout << "Input name of CS - ";
-    cin.ignore(2000, '\n');
-    getline(cin, CS1.name_CS);
-    cout << "Input count of CS in range of [1,50] ";
-    cin >> CS1.count_of_CS;
-    validateint(CS1.count_of_CS,1,50);
-    cout << "Input count of CS in work - ";
-    cin >> CS1.count_of_CS_in_work;
-    validateint(CS1.count_of_CS_in_work,1,CS1.count_of_CS_in_work);
-    cout << "Input effective in range[0,100] in integers - ";
-    cin >> CS1.effective;
-    validateint(CS1.effective,1,100);
-    return CS1;
-}
-
-void output(const Pipe& pipe1)
-{
-    cout << std::setw(10) << "PIPE\n";
-    cout << "---------------------------\n";
-    cout << "Length = " << pipe1.length<< '\n';
-    cout << "id of pipe = " << pipe1.id << '\n'; 
-    cout << "Diametr = " << pipe1.diametr << '\n';
-    cout << "Pipe under repair?" << '\n';
-    cout << "Yes - 1, No - 0\n"<<std::setw(5) << pipe1.remont << '\n';
-}
-
-void output(const CS& CS1)
-{
-    cout << std::setw(10) << "CS\n";
-    cout << "---------------------------\n";
-    cout << "id of CS = " << CS1.id << '\n';
-    cout << "Name of CS = " << CS1.name_CS << '\n';
-    cout << "Count of CS = " << CS1.count_of_CS << '\n';
-    cout << "Count of CS in work = " << CS1.count_of_CS_in_work << '\n';
-    cout << "Effective of CS = " << CS1.effective << '\n';
-}
-
-void savetofilepipe(const Pipe& pipe1, std::ofstream& datfile) {
+/*void savetofilepipe(const Pipe& pipe1, std::ofstream& datfile) {
     if (pipe1.id != -1)// && pipe1.diametr != -1 && pipe1.length != -1)
     {
         datfile << pipe1.id << '\n'
@@ -137,7 +39,7 @@ void savetofileCS(const CS& CS1, std::ofstream& datfile) {
 }
 
 
-void savetofile(const CS& CS1, const Pipe& pipe1) {
+/*void savetofile(const CS& CS1, const Pipe& pipe1) {
     std::ofstream datfile("data.txt");
     if (datfile.is_open()){
         savetofilepipe(pipe1, datfile);
@@ -150,7 +52,7 @@ void savetofile(const CS& CS1, const Pipe& pipe1) {
     }
 }
 
-void readfromfile(CS& CS1, Pipe& pipe1) {
+/*void readfromfile(CS& CS1, Pipe& pipe1) {
     std::ifstream dataaread("data.txt");
     if (dataaread.is_open()) {
         if (dataaread.peek() != -1) {
@@ -174,72 +76,61 @@ void readfromfile(CS& CS1, Pipe& pipe1) {
     else {
         cout << "File cant be open or empty.";
     }
- }
-
-void changepipe(bool& remont)
-{
-    system("cls");
-    cout << "Pipe under repair?"<<'\n';
-    cout << "Yes - 1, No - 0"<<'\n';
-    cin >> remont; '\n';
-    checkremont(remont);
-}
-
-void changeCS(int& count_of_CS_in_work,const int& count_of_CS)
-{
-    system("cls");
-    cout << "Count of CS in work"<<'\n';
-    cin >> count_of_CS_in_work; '\n';
-    validateint(count_of_CS_in_work,1,count_of_CS);
-}
-
-void showobjects(const Pipe& pipe1,const CS& CS1)
-{
-    system("cls");
-   if (pipe1.length == -1 && CS1.count_of_CS == -1) {
-        system("cls");
-        cout << "Pipe and CS data are empty. Try again after adding info.\n";
-    }
-    if (pipe1.length !=-1) {
-        output(pipe1);
-    }
-    if (CS1.count_of_CS != -1) {
-        output(CS1);
-    }
-}
+}*/
+size_t Pipe::MaxidPipe = 0;
+size_t CS::MaxidCS = 0;
 int main() {
-    Pipe pipe1; CS CS1;
+    PipeNetwork newPipeNetwork;
+    CSNetwork newCSNetwork;
     int variant;
     do {
-        print_menu();
-        cin >> variant;
-        validateint(variant, 0, 7);
+        Console::PrintMenu();
+        variant = Verification::getint("", "Error input. Only 0-7 numbers", 0, 7);
         switch (variant) {
         case 0: return 0;
         case 1:
-            pipe1 = input_pipe();
+            system("CLS");
+            Console::PrintTitleText("Adding pipe");
+            newPipeNetwork.AddPipe();
             break;
 
         case 2:
-            CS1 = input_CS();
+            system("CLS");
+            Console::PrintTitleText("Adding CS");
+            newCSNetwork.AddCS();
             break;
 
         case 3:
-            showobjects(pipe1,CS1);
+            system("CLS");
+            bool querypipe, querycs;
+            querypipe = newPipeNetwork.emptyPnetwork();
+            querycs = newCSNetwork.emptyCnetwork();
+            if (querypipe == 1 && querycs == 1)
+                cout << "Pipes and CS aren't inputten";
+            if (querypipe == 0) {
+                cout << "All pipes:\n";
+                newPipeNetwork.ShowAllPipes();
+            }
+            if (querycs == 0) {
+                cout << "All CS:\n";
+                newCSNetwork.ShowAllCS();
+            }
             break;
 
         case 4:
-            changepipe(pipe1.remont);
+            system("cls");
+            newPipeNetwork.changePipe();
             break;
         case 5:
-            changeCS(CS1.count_of_CS_in_work, CS1.count_of_CS);
+            system("cls");
+            newCSNetwork.ChangeCS();
             break;
         case 6:
-            savetofile(CS1, pipe1);
-            break;
+            /*savetofile(CS1, pipe1);
+            */break;
         case 7:
-            readfromfile(CS1, pipe1);
-            break; 
+            /*readfromfile(CS1, pipe1);
+             */break;
         }
 
         if (variant != 0)
