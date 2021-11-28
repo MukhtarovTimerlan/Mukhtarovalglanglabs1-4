@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 #ifndef PIPE_H
 #define PIPE_H
 
@@ -12,6 +13,8 @@ public:
 	bool remont;
 	void ChangePipe();
 	friend class PipeNetwork;
+	Pipe(std::ifstream&);
+	void SaveToFile(std::ofstream&);
 private:
 	size_t id;
 	static size_t MaxidPipe;

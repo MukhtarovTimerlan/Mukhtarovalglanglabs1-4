@@ -2,6 +2,7 @@
 #include "Verification.h"
 #include <iostream>
 #include "Console.h"
+#include <set>
 using std::cout;
 using std::endl;
 using std::cin;
@@ -113,6 +114,36 @@ std::string Verification::getstring(std::string textRequest, std::string textErr
         else
             Console::PrintErrorText(textError);
     }
+}
+
+std::set<size_t> Verification::getset(std::string textRequest, std::string textError)
+{
+    std::set<size_t> filterset;
+    size_t value;
+    bool flag = true;
+    while (flag)
+    {
+        flag = false;
+        std::cout << textRequest;
+        while (true)
+        {
+            std::cin >> value;
+            if (std::cin.good())
+                filterset.insert(value);
+            else
+            {
+                Console::PrintErrorText(textError);
+                filterset.clear();
+                std::cin.clear();
+                std::cin.ignore(10000, '\n');
+                flag = true;
+                break;
+            }
+            if (std::cin.peek() == '\n')
+                break;
+        }
+    }
+    return filterset;
 }
 
 

@@ -19,64 +19,6 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-/*void savetofilepipe(const Pipe& pipe1, std::ofstream& datfile) {
-    if (pipe1.id != -1)// && pipe1.diametr != -1 && pipe1.length != -1)
-    {
-        datfile << pipe1.id << '\n'
-            << pipe1.length << '\n'
-            << pipe1.diametr << '\n'
-            << pipe1.remont << '\n';
-    }
-}
-void savetofileCS(const CS& CS1, std::ofstream& datfile) {
-    if (CS1.id != -1){// && CS1.count_of_CS != -1 && CS1.count_of_CS_in_work != -1 && CS1.effective != -1) {
-        datfile << CS1.id << '\n'
-            << CS1.name_CS << '\n'
-            << CS1.count_of_CS << '\n'
-            << CS1.count_of_CS_in_work << '\n'
-            << CS1.effective;
-    }
-}
-
-
-/*void savetofile(const CS& CS1, const Pipe& pipe1) {
-    std::ofstream datfile("data.txt");
-    if (datfile.is_open()){
-        savetofilepipe(pipe1, datfile);
-        datfile << " \n";
-        savetofileCS(CS1, datfile);
-        datfile.close();
-    }
-    else {
-        cout << "Error. File is missing or dont exist.\n";
-    }
-}
-
-/*void readfromfile(CS& CS1, Pipe& pipe1) {
-    std::ifstream dataaread("data.txt");
-    if (dataaread.is_open()) {
-        if (dataaread.peek() != -1) {
-            while (dataaread.peek() != ' ')
-            {
-                dataaread >> pipe1.id >> pipe1.length >> pipe1.diametr >> pipe1.remont;
-                dataaread.ignore(1000, '\n');
-            }
-            dataaread.ignore(1000, '\n');
-            while (dataaread.peek() != -1) {
-                dataaread >> CS1.id;
-                getline(dataaread, CS1.name_CS);
-                dataaread >> CS1.count_of_CS >> CS1.count_of_CS_in_work >> CS1.effective;
-            }
-            dataaread.close();
-        }
-        else {
-            cout << "You dont load data to file to read it.\n";
-        }
-    }
-    else {
-        cout << "File cant be open or empty.";
-    }
-}*/
 size_t Pipe::MaxidPipe = 0;
 size_t CS::MaxidCS = 0;
 int main() {
@@ -85,7 +27,7 @@ int main() {
     int variant;
     do {
         Console::PrintMenu();
-        variant = Verification::getint("", "Error input. Only 0-7 numbers", 0, 7);
+        variant = Verification::getint("", "Error input. Only 0-11 numbers", 0, 11);
         switch (variant) {
         case 0: return 0;
         case 1:
@@ -108,11 +50,9 @@ int main() {
             if (querypipe == 1 && querycs == 1)
                 cout << "Pipes and CS aren't inputten";
             if (querypipe == 0) {
-                cout << "All pipes:\n";
                 newPipeNetwork.ShowAllPipes();
             }
             if (querycs == 0) {
-                cout << "All CS:\n";
                 newCSNetwork.ShowAllCS();
             }
             break;
@@ -126,11 +66,68 @@ int main() {
             newCSNetwork.ChangeCS();
             break;
         case 6:
-            /*savetofile(CS1, pipe1);
-            */break;
+            system("cls");
+            cout << "Banch changing pipes:\n";
+            newPipeNetwork.BatchChangePipe();
+            break;
         case 7:
-            /*readfromfile(CS1, pipe1);
-             */break;
+            system("cls");
+            cout << "Banch changing CS:\n";
+            newCSNetwork.BatchChangeCS();
+            break;
+        case 8:
+            system("cls");
+            cout << "Deleting Pipe:\n";
+            newPipeNetwork.DeletePipe();
+            break;
+        case 9:
+            system("cls");
+            cout << "Deleting CS:\n";
+            newCSNetwork.DeleteCS();
+            break;
+        case 10:
+        {
+            system("CLS");
+            Console::PrintTitleText("\n\t\tSaving data to file\n");
+            std::string fileName = Verification::getstring("Input name of savefile (.txt, max 30 symbols): ",
+                "Error input. Follow the rules!", 30);
+            std::ofstream fout(fileName);
+            if (fout.is_open())
+            {
+                newPipeNetwork.SaveToFile(fout);
+                fout << ' ' << std::endl;
+                newCSNetwork.SaveToFile(fout);
+            }
+            else
+                Console::PrintErrorText("\nERROR!");
+            fout.close();
+            break;
+        }
+        case 11:
+        {
+            system("CLS");
+            Console::PrintTitleText("\n\t\tDownloading from file\n");
+            std::string fileName = Verification::getstring("Input name of file for download (.txt, less than 30 symbols): ", "Error!", 30);
+            std::ifstream fin(fileName);
+            if (fin.is_open())
+            {
+                if (fin.peek() != -1)
+                {
+                    newPipeNetwork.DownloadFromFile(fin);
+                    fin.ignore(10000, '\n');
+                    newCSNetwork.DownloadFromFile(fin);
+                }
+                else
+                {
+                    Console::PrintErrorText("\nFile is empty ");
+                }
+            }
+            else
+                Console::PrintErrorText("\nError");
+            fin.close();
+            system("pause");
+            break;
+        }
         }
 
         if (variant != 0)

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Pipe.h"
 #include "Verification.h"
+#include <iomanip>
 
 Pipe::Pipe()
 {
@@ -11,9 +12,19 @@ Pipe::Pipe()
 	this->remont = Verification::getbool("Input repair status:\nYes-1, No - 0", "Your input isn't valid. Use only 1 or 0");
 }
 
+void Pipe::SaveToFile(std::ofstream& fout)
+{
+	fout << id << std::endl
+		<< length << std::endl
+		<< diametr << std::endl
+		<< remont << std::endl;
+}
+
 
 void Pipe::ChangePipe()
 {
 	this->remont = Verification::getbool("Choose new pipe condition.\n Yes - 1, No - 0", "Your input isn't valid. Use only 1 or 0");
 }
-
+Pipe::Pipe(std::ifstream& fin) {
+	fin >> this->id >> this->length >> this->diametr >> this->remont;
+ }
