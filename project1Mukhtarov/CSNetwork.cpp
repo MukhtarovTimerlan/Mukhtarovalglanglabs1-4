@@ -330,10 +330,10 @@ void CSNetwork::SaveToFile(std::ofstream& fout)
 }
 void CSNetwork::DownloadFromFile(std::ifstream& fin)
 {
+	csNetwork.clear();
 	size_t maxId;
 	fin >> maxId;
-	if (maxId > CS::MaxidCS)
-		CS::MaxidCS = maxId;
+	CS::MaxidCS = maxId;
 	while (fin.peek() != ' ' && fin.peek() != -1)
 	{
 		CS compressorStation(fin);

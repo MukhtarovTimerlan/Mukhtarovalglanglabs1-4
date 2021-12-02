@@ -273,10 +273,10 @@ void PipeNetwork::SaveToFile(std::ofstream& fout)
 
 void PipeNetwork::DownloadFromFile(std::ifstream& fin)
 {
+	pipeNetwork.clear();
 	size_t maxId;
 	fin >> maxId;
-	if (maxId > Pipe::MaxidPipe)
-		Pipe::MaxidPipe = maxId;
+	Pipe::MaxidPipe = maxId;
 	while (fin.peek() != ' ' && fin.peek() != -1)
 	{
 		Pipe pipe(fin);
