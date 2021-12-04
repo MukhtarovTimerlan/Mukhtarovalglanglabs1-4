@@ -21,7 +21,9 @@ CS::CS(std::ifstream& fin)
 		getline(fin, this->name_CS);
 		fin >> this->count_of_CS
 			>> this->count_of_CS_in_work
-			>> this->effective;
+			>> this->effective
+			>> this->stepenzahoda
+			>> this->stepenishoda;
 	}
 }
 
@@ -36,5 +38,7 @@ void CS::SaveToFile(std::ofstream& fout)
 		<< name_CS << std::endl
 		<< count_of_CS << std::endl
 		<< count_of_CS_in_work << std::endl
-		<< effective << std::endl;
+		<< effective << std::endl
+		<< stepenishoda << std::endl
+		<< stepenzahoda << std::endl;
 }

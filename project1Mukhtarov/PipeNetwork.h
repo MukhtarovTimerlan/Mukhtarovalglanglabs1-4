@@ -16,7 +16,7 @@ public:
 	void DownloadFromFile(std::ifstream&);
 	void ShowAllPipes();
 	bool emptyPnetwork();
-
+	friend class GasTransportSystem;
 
 private:
 	std::unordered_map<size_t, Pipe> pipeNetwork;

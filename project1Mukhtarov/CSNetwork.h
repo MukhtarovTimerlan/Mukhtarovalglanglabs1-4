@@ -17,6 +17,7 @@ public:
 	void DownloadFromFile(std::ifstream& fin);
 	void ShowAllCS();
 	bool emptyCnetwork();
+	friend class GasTransportSystem;
 private:
 	std::unordered_map<size_t, CS> csNetwork;
 	std::vector<size_t> idfilter;

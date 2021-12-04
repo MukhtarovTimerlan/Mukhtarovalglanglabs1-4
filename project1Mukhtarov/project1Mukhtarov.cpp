@@ -13,6 +13,7 @@
 #include "CSNetwork.h"
 #include "CS.h"
 #include "Pipe.h"
+#include "GasTransportSystem.h"
 
 
 using std::cin;
@@ -24,10 +25,11 @@ size_t CS::MaxidCS = 0;
 int main() {
     PipeNetwork newPipeNetwork;
     CSNetwork newCSNetwork;
+    GasTransportSystem newGasTransportSystem(newPipeNetwork, newCSNetwork);
     int variant;
     do {
         Console::PrintMenu();
-        variant = Verification::getint("", "Error input. Only 0-11 numbers", 0, 11);
+        variant = Verification::getint("", "Error input. Only 0-15 numbers", 0, 15);
         switch (variant) {
         case 0: return 0;
         case 1:
@@ -126,6 +128,26 @@ int main() {
                 Console::PrintErrorText("\nError");
             fin.close();
             system("pause");
+            break;
+        }
+        case 12: {
+            system("cls");
+            newGasTransportSystem.ConnectPipe();
+            break;
+        }
+        case 13: {
+            system("cls");
+            newGasTransportSystem.DisconnectPipe();
+            break;
+        }
+        case 14: {
+            system("cls");
+            newGasTransportSystem.ShowConnections();
+            break;
+        }
+        case 15: {
+            system("cls");
+            newGasTransportSystem.SORT(newPipeNetwork, newCSNetwork);
             break;
         }
         }

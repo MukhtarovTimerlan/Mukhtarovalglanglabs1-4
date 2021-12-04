@@ -182,7 +182,7 @@ void CSNetwork::DeleteCS()
 		Console::PrintErrorText("CS arent inputten!");
 	}
 	bool query;
-	query = Verification::getbool("Delete 1 CS - 1, delete banch CS by filter - 0 ",
+	query = Verification::getbool("Delete 1 by 1 CS - 1, delete banch CS by filter - 0 ",
 		"\nWrong input. Only 1 or 0\n");
 	if (query)
 	{
@@ -195,13 +195,13 @@ void CSNetwork::DeleteCS()
 			"\nWrong input.Try again.");
 		for (const auto id : setIdForDelete)
 		{
-			if (csNetwork.find(id) != csNetwork.end())
+			if (csNetwork.find(id) != csNetwork.end() && csNetwork[id].stepenishoda ==0 && csNetwork[id].stepenzahoda == 0)
 			{
 				csNetwork.erase(id);
 				Console::PrintTitleText("CS with id = " + std::to_string(id) + " was deleted!\n");
 			}
 			else
-				Console::PrintErrorText("CS with id = " + std::to_string(id) + " wasnt founded!\n");
+				Console::PrintErrorText("CS with id = " + std::to_string(id) + " wasnt founded or CS take part in connections. Delete connections first.\n");
 		}
 	}
 	else 
@@ -215,8 +215,11 @@ void CSNetwork::DeleteCS()
 				"\nWrong input. Only 1 or 0");
 			if (query) 
 			{
-				for (const auto i : idfilter)
-					csNetwork.erase(i);
+				for (const auto i : idfilter) {
+					if (csNetwork[i].stepenishoda == 0 && csNetwork[i].stepenzahoda == 0)
+						csNetwork.erase(i);
+					else Console::PrintErrorText("CS with id - " + std::to_string(i) + "take part in connections. Delete connections first. ");
+				}
 				Console::PrintTitleText("\n\nCS were deleted.");
 			}
 			else 
@@ -227,13 +230,13 @@ void CSNetwork::DeleteCS()
 				for (auto id : setIdForDelete)
 				{
 					auto it = std::find(idfilter.begin(), idfilter.end(), id);
-					if (it != idfilter.end())
+					if (it != idfilter.end() && csNetwork[id].stepenishoda == 0 && csNetwork[id].stepenzahoda == 0)
 					{
 						csNetwork.erase(id);
 						Console::PrintTitleText("CS with id = " + std::to_string(id) + " was deleted.\n");
 					}
 					else
-						Console::PrintErrorText("CS with id = " + std::to_string(id) + " wasnt finded in filtered CS!\n");
+						Console::PrintErrorText("CS with id = " + std::to_string(id) + " wasnt finded in filtered CS or CS take part in connections. Delete connections first. \n");
 				}
 			}
 			idfilter.clear();

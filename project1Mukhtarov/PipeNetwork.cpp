@@ -149,13 +149,13 @@ void PipeNetwork::DeletePipe()
 			"\nOOOOOPs, input error");
 		for (const auto id : setIdForDelete)
 		{
-			if (pipeNetwork.find(id) != pipeNetwork.end())
+			if (pipeNetwork.find(id) != pipeNetwork.end() && pipeNetwork[id].idin ==0)
 			{
 				pipeNetwork.erase(id);
 				Console::PrintTitleText("Pipe with id - " + std::to_string(id) + " was deleted.\n");
 			}
 			else
-				Console::PrintErrorText("Pipe with id - " + std::to_string(id) + " wasnt finded\n");
+				Console::PrintErrorText("Pipe with id - " + std::to_string(id) + " wasnt finded or pipe take part in connection. Delete connection first.\n");
 		}
 	}
 	else 
@@ -169,8 +169,11 @@ void PipeNetwork::DeletePipe()
 				"\nInput error. Try again");
 			if (query) 
 			{
-				for (const auto& i : idfilter)
-					pipeNetwork.erase(i);
+				for (const auto& i : idfilter) {
+					if (pipeNetwork[i].idin == 0)
+						pipeNetwork.erase(i);
+					else Console::PrintErrorText("Pipe with id - " + std::to_string(i) + " take part in connection. Delete connection first.\n");
+				}
 				Console::PrintTitleText("\nAll filtered pipes were deleted.");
 			}
 			else 
@@ -181,13 +184,13 @@ void PipeNetwork::DeletePipe()
 				for (auto id : setIdForDelete)
 				{
 					auto it = std::find(idfilter.begin(), idfilter.end(), id);
-					if (it != idfilter.end())
+					if (it != idfilter.end() &&  pipeNetwork[id].idin==0)
 					{
 						pipeNetwork.erase(id);
 						Console::PrintTitleText("Pipe with id = " + std::to_string(id) + " was deleted!\n");
 					}
 					else
-						Console::PrintErrorText("Pipe with id = " + std::to_string(id) + " wasnt finded!\n");
+						Console::PrintErrorText("Pipe with id = " + std::to_string(id) + " wasnt finded or pipe take part in connection. Delete connection first.\n");
 				}
 			}
 			idfilter.clear();

@@ -150,6 +150,7 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="CS.cpp" />
     <ClCompile Include="CSNetwork.cpp" />
+    <ClCompile Include="GasTransportSystem.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -165,6 +166,7 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="CS.h" />
     <ClInclude Include="CSNetwork.h" />
+    <ClInclude Include="GasTransportSystem.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="PipeNetwork.h" />
     <ClInclude Include="Verification.h" />

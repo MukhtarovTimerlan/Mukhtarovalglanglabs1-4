@@ -39,13 +39,13 @@ int Verification::getint(std::string textRequest, std::string textError, int min
     }
     return(value);
 }
-size_t Verification::getsize_t(std::string textRequest, std::string textError, size_t min, size_t max)
+size_t Verification::getsize_t(std::string textRequest, std::string textError, size_t min, size_t max, size_t idout_)
 {
     size_t value;
     cout << textRequest << endl;
     cin >> value;
     while (true) {
-        if (!cin || cin.peek() != '\n' || value < min || value > max)
+        if (!cin || cin.peek() != '\n' || value < min || value > max || value == idout_)
         {
             Console::PrintErrorText(textError);
             cin.clear();

@@ -39,6 +39,9 @@
     <ClCompile Include="Verification.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GasTransportSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CS.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Verification.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GasTransportSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

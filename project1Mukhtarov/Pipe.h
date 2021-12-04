@@ -13,8 +13,10 @@ public:
 	bool remont;
 	void ChangePipe();
 	friend class PipeNetwork;
+	friend class GasTransportSystem;
 	Pipe(std::ifstream&);
 	void SaveToFile(std::ofstream&);
+	size_t idin=0, idout=0;
 private:
 	size_t id;
 	static size_t MaxidPipe;
