@@ -95,10 +95,10 @@ void CSNetwork::ShowAllCS()
 {
 	int tabulation_20 = 20, tabulation_30 = 30;
 	Console::PrintTitleText("\n\t\t\t\tTable of CS");
-	std::cout << std::setw(tabulation_20) << "ID" << std::setw(tabulation_30) << "Count of CS" << std::setw(tabulation_30) << "Count of CS in work" << std::setw(tabulation_30) << "Effective" << std::setw(tabulation_20) << "Name of CS"<< std::endl;
+	std::cout << std::setw(tabulation_20) << "ID" << std::setw(tabulation_30) << "Count of CS" << std::setw(tabulation_30) << "Count of CS in work" << std::setw(tabulation_30) << "Effective" << std::setw(tabulation_20) << "Name of CS" << std::setw(tabulation_20)<< "Stepenishoda" << std::setw(tabulation_20)<< "Stepenzahoda"<<std::endl;
 	for (const auto& p : csNetwork)
 	{
-		std::cout << std::setw(tabulation_20) << p.second.id << std::setw(tabulation_30) << p.second.count_of_CS << std::setw(tabulation_30) << p.second.count_of_CS_in_work << std::setw(tabulation_30) << p.second.effective << std::setw(tabulation_20) << p.second.name_CS << std::endl;
+		std::cout << std::setw(tabulation_20) << p.second.id << std::setw(tabulation_30) << p.second.count_of_CS << std::setw(tabulation_30) << p.second.count_of_CS_in_work << std::setw(tabulation_30) << p.second.effective << std::setw(tabulation_20) << p.second.name_CS << std::setw(tabulation_20)<< p.second.stepenishoda << std::setw(tabulation_20)<<p.second.stepenzahoda<< std::endl;
 	}
 }
 
