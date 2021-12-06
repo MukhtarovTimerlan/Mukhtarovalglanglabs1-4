@@ -131,8 +131,9 @@ void GasTransportSystem::SORT(PipeNetwork sortPipeNetwork, CSNetwork sortCSNetwo
 			idCSgraf.push_back(p.first);
 		}
 	}
+	size_t check = size(idCSgraf);
 	insort(sortPipeNetwork, sortCSNetwork,idCSgraf,idPipegraf);
-	if (!idsorted.empty()) {
+	if (!idsorted.empty() && check==size(idsorted)) {
 		std::cout << "Topological sort: ";
 		for (const auto id : idsorted) {
 			std::cout << id << " ";

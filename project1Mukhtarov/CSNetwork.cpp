@@ -320,7 +320,6 @@ void CSNetwork::BatchChangeCS()
 
 void CSNetwork::SaveToFile(std::ofstream& fout)
 {
-	size_t percent = 0;
 	if (csNetwork.empty())
 	{
 		Console::PrintErrorText("You dont add CS.");
