@@ -1,10 +1,11 @@
 #pragma once
+#ifndef PIPENETWORK_H
+#define PIPENETWORK_H
+
 #include <unordered_map>
 #include"Pipe.h"
 #include <vector>
 #include <fstream>
-#ifndef PIPENETWORK_H
-#define PIPENETWORK_H
 class PipeNetwork
 {
 public:

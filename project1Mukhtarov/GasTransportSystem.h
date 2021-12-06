@@ -1,4 +1,6 @@
 #pragma once
+#ifndef GASTRANSPORTSYSTEM_H
+#define GASTRANSPORTSYSTEM_H
 #include "PipeNetwork.h"
 #include "CSNetwork.h"
 #include "Verification.h"
@@ -7,9 +9,6 @@
 #include "CS.h"
 #include "Pipe.h"
 #include <vector>
-
-#ifndef GASTRANSPORTSYSTEM_H
-#define GASTRANSPORTSYSTEM_H
 
 
 class GasTransportSystem

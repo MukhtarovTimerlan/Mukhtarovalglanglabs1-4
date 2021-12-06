@@ -107,7 +107,7 @@ std::string Verification::getstring(std::string textRequest, std::string textErr
     while (true)
     {
         std::cout << textRequest;
-        std::cin.seekg(std::cin.eof());
+        std::cin >> std::ws;
         getline(std::cin, nameCS);
         if (nameCS != "" && checkemptyinput(nameCS) && size(nameCS) <= length)
             return nameCS;

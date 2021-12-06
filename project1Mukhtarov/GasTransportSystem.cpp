@@ -117,6 +117,7 @@ void GasTransportSystem::insort(PipeNetwork& sortPipeNetwork, CSNetwork& sortCSN
 
 void GasTransportSystem::SORT(PipeNetwork sortPipeNetwork, CSNetwork sortCSNetwork)
 {
+	idsorted.clear();
 	idPipegraf.clear();
 	idCSgraf.clear();
 	for (auto& p : sortPipeNetwork.pipeNetwork)

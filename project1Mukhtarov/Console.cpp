@@ -17,6 +17,10 @@ void Console::PrintMenu()
     cout << "9. Delete CS\n";
     cout << "10. Save to file" << '\n';
     cout << "11. Load from file" << '\n';
+    cout << "12. Add connection" << '\n';
+    cout << "13. Disconnect" << '\n';
+    cout << "14. Show connection" << '\n';
+    cout << "15. Topological sort." << '\n';
     cout << "0. Exit" << '\n';
     cout << ">";
 }
