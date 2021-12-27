@@ -17,6 +17,7 @@ public:
 	Pipe(std::ifstream&);
 	void SaveToFile(std::ofstream&);
 	size_t idin=0, idout=0;
+	static size_t GetMaxId();
 private:
 	size_t id;
 	static size_t MaxidPipe;

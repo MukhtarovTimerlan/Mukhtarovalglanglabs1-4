@@ -21,6 +21,7 @@ void Console::PrintMenu()
     cout << "13. Disconnect" << '\n';
     cout << "14. Show connection" << '\n';
     cout << "15. Topological sort." << '\n';
+    cout << "16. Find the shortest way." << '\n';
     cout << "0. Exit" << '\n';
     cout << ">";
 }

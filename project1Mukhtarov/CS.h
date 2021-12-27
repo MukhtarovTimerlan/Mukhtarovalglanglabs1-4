@@ -17,11 +17,12 @@ public:
 		effective;
 		CS(std::ifstream&);
 		size_t stepenishoda=0, stepenzahoda=0;
-	std::string name_CS;
-	void ChangeCS();
-	void SaveToFile(std::ofstream&);
-	friend class CSNetwork;
-	friend class GasTransportSystem;
+		static size_t GetMaxId();
+		std::string name_CS;
+		void ChangeCS();
+		void SaveToFile(std::ofstream&);
+		friend class CSNetwork;
+		friend class GasTransportSystem;
 };
 
 #endif 

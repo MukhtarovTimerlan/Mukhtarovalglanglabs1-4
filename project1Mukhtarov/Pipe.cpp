@@ -30,3 +30,7 @@ void Pipe::ChangePipe()
 Pipe::Pipe(std::ifstream& fin) {
 	fin >> this->id >> this->length >> this->diametr >> this->remont >> this->idout >> this->idin;
  }
+
+size_t Pipe::GetMaxId() {
+	return MaxidPipe;
+}

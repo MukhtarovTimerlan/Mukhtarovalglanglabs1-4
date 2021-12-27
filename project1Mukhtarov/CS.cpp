@@ -42,3 +42,8 @@ void CS::SaveToFile(std::ofstream& fout)
 		<< stepenzahoda << std::endl
 		<< stepenishoda << std::endl;
 }
+
+size_t CS::GetMaxId()
+{
+	return MaxidCS;
+}

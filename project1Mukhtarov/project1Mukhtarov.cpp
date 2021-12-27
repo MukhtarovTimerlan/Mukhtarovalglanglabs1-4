@@ -29,7 +29,7 @@ int main() {
     int variant;
     do {
         Console::PrintMenu();
-        variant = Verification::getint("", "Error input. Only 0-15 numbers", 0, 15);
+        variant = Verification::getint("", "Error input. Only 0-16 numbers", 0, 16);
         switch (variant) {
         case 0: return 0;
         case 1:
@@ -148,6 +148,54 @@ int main() {
         case 15: {
             system("cls");
             newGasTransportSystem.SORT(newPipeNetwork, newCSNetwork);
+            break;
+        }
+        case 16: {
+            system("cls");
+            newGasTransportSystem.fillgraf();
+            if (newGasTransportSystem.mapPipeInUse.empty())
+            {
+                Console::PrintErrorText("\nThere are no connections. Add them first then try again.");
+                system("pause");
+                system("CLS");
+                break;
+            }
+            size_t idCSOut;
+            size_t idCSIn;
+            newGasTransportSystem.ShowConnections();
+            while (true)
+            {
+                idCSOut = Verification::getsize_t("\nInput CS from: ",
+                    "Use only integers and input only existing ids", 1, CS::GetMaxId());
+                if (newGasTransportSystem.mapCSInUse.find(idCSOut) == newGasTransportSystem.mapCSInUse.end())
+                {
+                    Console::PrintErrorText("There is no CS with this ID in graf. Try again");
+                    continue;
+                }
+                else
+                    break;
+            }
+            while (true)
+            {
+                idCSIn = Verification::getsize_t("\nInput CS to: ",
+                    "Use only integers and input only existing ids", 1, CS::GetMaxId());
+                if (newGasTransportSystem.mapCSInUse.find(idCSIn) == newGasTransportSystem.mapCSInUse.end())
+                {
+                    Console::PrintErrorText("There is no CS with this ID in graf. Try again");
+                    continue;
+                }
+                else
+                    break;
+            }
+            try
+            {
+                std::vector<size_t> vectorPath = newGasTransportSystem.findPath(idCSOut, idCSIn);
+                newGasTransportSystem.printPath(vectorPath);
+            }
+            catch (int)
+            {
+                Console::PrintErrorText("There is no way from " + std::to_string(idCSOut) + " CS to " + std::to_string(idCSIn) + " CS");
+            }
             break;
         }
         }

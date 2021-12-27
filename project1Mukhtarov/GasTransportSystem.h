@@ -19,12 +19,16 @@ public:
 	void DisconnectPipe();
 	void ShowConnections();
 	void SORT(PipeNetwork, CSNetwork);
+	std::vector<size_t> findPath(size_t, size_t);
+	void printPath(const std::vector<size_t>&);
+	void fillgraf();
+	std::unordered_map<size_t, CS> mapCSInUse;
+	std::unordered_map<size_t, Pipe> mapPipeInUse;
+	double WAY;
 private:
-	void insort(PipeNetwork&,CSNetwork&, std::vector<size_t>&, std::vector<size_t>&);
+	void insort(PipeNetwork&,CSNetwork&, std::unordered_map<size_t, CS>&, std::unordered_map<size_t, Pipe>&);
 	void microdisconnect(size_t, PipeNetwork&, CSNetwork&);
 	std::vector<size_t> idsorted;
-	std::vector<size_t> idCSgraf;
-	std::vector<size_t> idPipegraf;
 	PipeNetwork& newPipeNetwork;
 	CSNetwork& newCSNetwork;
 };
